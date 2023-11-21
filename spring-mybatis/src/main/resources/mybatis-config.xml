@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--    这个是mybatis的配置文件，跟spring整合之后，这里的内容都可以省去。
+            实际开发中一般都一个settings的内容在这里-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <package name="com.itlucky.pojo"/>
+    </typeAliases>
+
+    <!--<environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mytest?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root123"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper class="com.itlucky.mapper.UserMapper"/>
+    </mappers>-->
+
+</configuration>

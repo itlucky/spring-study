@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itlucky.mapper.UserMapper">
+    
+    <select id="queryUsers" resultType="user">
+        select * from p_user pu
+    </select>
+
+    <insert id="add" parameterType="user">
+        insert into p_user(id,name,sex,age,address) values (#{user.id},#{user.name},#{user.sex},#{user.age},#{user.address})
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        deletes from p_user where id = #{id}
+    </delete>
+
+</mapper>

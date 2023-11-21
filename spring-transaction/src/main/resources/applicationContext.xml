@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <import resource="spring-dao.xml"/>
+    <!--开启了对注解的解析-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <bean id="userMapper" class="com.itlucky.mapper.UserMapperImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="userSvc" class="com.itlucky.mapper.UserSvcImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
+    <!--配置声明式事物-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--
+        &lt;!&ndash;结合AOP实现事物的织入&ndash;&gt;
+        &lt;!&ndash;配置事物通知：&ndash;&gt;
+        <tx:advice id="txAdvice" transaction-manager="transactionManager">
+            &lt;!&ndash;给哪些方法配置事物， *表示所有方法，一般都是一个*的配置&ndash;&gt;
+            &lt;!&ndash;配置事物的传播特性  propagation（默认值REQUIRED，一共7种事物属性）&ndash;&gt;
+            <tx:attributes>
+                <tx:method name="add" propagation="REQUIRED"/>
+                <tx:method name="delete"/>
+                <tx:method name="update"/>
+                <tx:method name="*" propagation="REQUIRED"/>
+            </tx:attributes>
+        </tx:advice>
+
+        &lt;!&ndash;配置事物的切入&ndash;&gt;
+        <aop:config>
+            &lt;!&ndash;mapper包下的所有类所有方法都可以&ndash;&gt;
+            <aop:pointcut id="txPointCut" expression="execution(* com.itlucky.mapper.*.*(..))"/>
+            <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+        </aop:config>-->
+
+</beans>
